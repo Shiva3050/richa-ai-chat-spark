@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from "react";
 import { Mic, MicOff, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,10 +9,12 @@ interface VoiceRecorderProps {
   isLoading: boolean;
 }
 
+type SpeechRecognitionType = any;
+
 declare global {
   interface Window {
-    SpeechRecognition: typeof SpeechRecognition;
-    webkitSpeechRecognition: typeof SpeechRecognition;
+    SpeechRecognition: SpeechRecognitionType;
+    webkitSpeechRecognition: SpeechRecognitionType;
   }
 }
 
@@ -22,7 +25,6 @@ export function VoiceRecorder({ onTranscription, isLoading }: VoiceRecorderProps
   const { toast } = useToast();
 
   useEffect(() => {
-    // Initialize speech recognition
     if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
       const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
       recognitionRef.current = new SpeechRecognitionAPI();
@@ -119,7 +121,12 @@ export function VoiceRecorder({ onTranscription, isLoading }: VoiceRecorderProps
       size="icon" 
       onClick={toggleRecording}
       disabled={isLoading}
-      className={isRecording ? "bg-red-500 text-white hover:bg-red-600" : ""}
+      className={cn(
+        "rounded-xl transition-all duration-200",
+        isRecording 
+          ? "bg-red-500 text-white hover:bg-red-600 hover:scale-105" 
+          : "hover:scale-105"
+      )}
       aria-label={isRecording ? "Stop recording" : "Start recording"}
     >
       {isRecording ? (

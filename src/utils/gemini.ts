@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 
-// This API key needs to be set by the user after obtaining it from Google AI Studio
-let API_KEY = ""; 
+// Initialize with the provided API key
+let API_KEY = "AIzaSyBvKE5hlPXiKM6JtOuEf9a1SfD47l6kYzA"; 
 
 // Function to set the API key
 export const setApiKey = (key: string) => {
@@ -27,10 +27,7 @@ export const getApiKey = (): string => {
 
 // Initialize the Gemini API client
 const getGeminiClient = () => {
-  const apiKey = getApiKey();
-  if (!apiKey) throw new Error("API key not found");
-  
-  return new GoogleGenerativeAI(apiKey);
+  return new GoogleGenerativeAI(API_KEY);
 };
 
 // Safety settings for the Gemini API

@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import { Mic, MicOff, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +6,13 @@ import { useToast } from "@/hooks/use-toast";
 interface VoiceRecorderProps {
   onTranscription: (text: string) => void;
   isLoading: boolean;
+}
+
+declare global {
+  interface Window {
+    SpeechRecognition: typeof SpeechRecognition;
+    webkitSpeechRecognition: typeof SpeechRecognition;
+  }
 }
 
 export function VoiceRecorder({ onTranscription, isLoading }: VoiceRecorderProps) {
@@ -18,8 +24,9 @@ export function VoiceRecorder({ onTranscription, isLoading }: VoiceRecorderProps
   useEffect(() => {
     // Initialize speech recognition
     if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      recognitionRef.current = new SpeechRecognition();
+      const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognitionRef.current = new SpeechRecognitionAPI();
+      
       recognitionRef.current.continuous = true;
       recognitionRef.current.interimResults = true;
       

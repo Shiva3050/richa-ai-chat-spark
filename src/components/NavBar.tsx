@@ -1,8 +1,12 @@
 
 import { Sparkles } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { ApiKeySetup } from "./ApiKeySetup";
+import { useState } from "react";
 
 export function NavBar() {
+  const [apiKeySet, setApiKeySet] = useState(false);
+  
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
       <div className="container flex h-16 items-center">
@@ -13,7 +17,8 @@ export function NavBar() {
         
         <div className="flex-1" />
         
-        <nav className="flex items-center gap-2">
+        <nav className="flex items-center gap-4">
+          <ApiKeySetup onApiKeySet={setApiKeySet} />
           <ThemeToggle />
         </nav>
       </div>

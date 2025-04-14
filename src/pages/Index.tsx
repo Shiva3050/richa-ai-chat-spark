@@ -1,11 +1,15 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { NavBar } from "@/components/NavBar";
+import Chat from "@/components/Chat";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="flex flex-col h-screen">
+      <NavBar />
+      <div className="container flex flex-col flex-1 mx-auto py-4 max-w-4xl">
+        <div className="flex-1 border rounded-lg shadow-sm overflow-hidden flex flex-col">
+          <Chat />
+        </div>
       </div>
     </div>
   );

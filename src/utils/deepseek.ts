@@ -1,5 +1,6 @@
+
 // Store API key in localStorage
-let API_KEY = "AIzaSyBvKE5hlPXiKM6JtOuEf9a1SfD47l6kYzA"; 
+let API_KEY = ""; 
 
 // Function to set the API key
 export const setApiKey = (key: string) => {
@@ -32,6 +33,11 @@ interface Message {
 // Function to send text messages to DeepSeek API
 export const sendTextMessage = async (messages: { role: string; content: string }[]) => {
   try {
+    const apiKey = getApiKey();
+    if (!apiKey) {
+      throw new Error("API key not set. Please set your DeepSeek API key.");
+    }
+    
     const formattedMessages = messages.map(msg => ({
       role: msg.role === "ai" ? "assistant" : "user",
       content: msg.content
@@ -41,7 +47,7 @@ export const sendTextMessage = async (messages: { role: string; content: string 
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${getApiKey()}`
+        "Authorization": `Bearer ${apiKey}`
       },
       body: JSON.stringify({
         model: "deepseek-chat",

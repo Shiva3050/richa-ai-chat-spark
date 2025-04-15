@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { getApiKey, setApiKey } from "@/utils/deepseek";
 import { useToast } from "@/hooks/use-toast";
+import { AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface ApiKeySetupProps {
   onApiKeySet: (isSet: boolean) => void;
@@ -13,6 +15,7 @@ interface ApiKeySetupProps {
 export function ApiKeySetup({ onApiKeySet }: ApiKeySetupProps) {
   const [apiKey, setApiKeyState] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState("");
   const { toast } = useToast();
 
   useEffect(() => {
@@ -28,6 +31,7 @@ export function ApiKeySetup({ onApiKeySet }: ApiKeySetupProps) {
 
   const handleSaveApiKey = () => {
     if (!apiKey.trim()) {
+      setError("Please enter a valid API key");
       toast({
         title: "Error",
         description: "Please enter a valid API key",
@@ -36,6 +40,10 @@ export function ApiKeySetup({ onApiKeySet }: ApiKeySetupProps) {
       return;
     }
 
+    // Clear previous errors
+    setError("");
+    
+    // Save the API key
     setApiKey(apiKey);
     toast({
       title: "Success",
@@ -68,6 +76,14 @@ export function ApiKeySetup({ onApiKeySet }: ApiKeySetupProps) {
               DeepSeek Platform
             </a>
           </p>
+          
+          {error && (
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+          
           <Input
             placeholder="Enter your DeepSeek API key"
             value={apiKey}

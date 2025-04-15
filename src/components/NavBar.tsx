@@ -3,9 +3,20 @@ import { Sparkles, Github } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { ApiKeySetup } from "./ApiKeySetup";
+import { useState, useEffect } from "react";
+import { getApiKey } from "@/utils/deepseek";
 
 export function NavBar() {
+  const [isApiKeySet, setIsApiKeySet] = useState(false);
+
+  useEffect(() => {
+    // Check if API key is already set on component mount
+    const key = getApiKey();
+    setIsApiKeySet(!!key);
+  }, []);
+
   const handleApiKeySet = (isSet: boolean) => {
+    setIsApiKeySet(isSet);
     console.log("API key set:", isSet);
   };
 

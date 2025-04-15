@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import { Send, Bot, User, Loader2, PaperclipIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { VoiceRecorder } from "./VoiceRecorder";
-import { sendTextMessage, sendMultiModalMessage, getApiKey } from "@/utils/gemini";
+import { sendTextMessage, sendMultiModalMessage, getApiKey } from "@/utils/deepseek";
 import { useChatHistory, Message } from "@/contexts/ChatHistoryContext";
 import {
   DropdownMenu,
@@ -44,7 +43,7 @@ export default function Chat() {
     if (!hasApiKey) {
       toast({
         title: "API Key Required",
-        description: "Please set your Gemini API key first",
+        description: "Please set your DeepSeek API key first",
         variant: "destructive",
       });
       return;

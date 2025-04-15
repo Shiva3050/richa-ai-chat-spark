@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { getApiKey, setApiKey } from "@/utils/gemini";
+import { getApiKey, setApiKey } from "@/utils/deepseek";
 import { useToast } from "@/hooks/use-toast";
 
 interface ApiKeySetupProps {
@@ -54,22 +54,22 @@ export function ApiKeySetup({ onApiKeySet }: ApiKeySetupProps) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Set Gemini API Key</DialogTitle>
+          <DialogTitle>Set DeepSeek API Key</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <p className="text-sm text-muted-foreground">
-            Enter your Gemini API key to use RICHA-AI. You can get a free API key from{" "}
+            Enter your DeepSeek API key to use RICHA-AI. You can get an API key from{" "}
             <a
-              href="https://ai.google.dev/"
+              href="https://platform.deepseek.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary underline"
             >
-              Google AI Studio
+              DeepSeek Platform
             </a>
           </p>
           <Input
-            placeholder="Enter your Gemini API key"
+            placeholder="Enter your DeepSeek API key"
             value={apiKey}
             onChange={(e) => setApiKeyState(e.target.value)}
           />

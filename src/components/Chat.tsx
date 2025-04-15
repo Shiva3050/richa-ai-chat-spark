@@ -1,6 +1,5 @@
-
 import { useState, useRef, useEffect } from "react";
-import { Send, Bot, User, Loader2 } from "lucide-react";
+import { Send, Bot, User, Loader2, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
@@ -8,6 +7,12 @@ import { cn } from "@/lib/utils";
 import { VoiceRecorder } from "./VoiceRecorder";
 import { FileUpload } from "./FileUpload";
 import { sendTextMessage, sendMultiModalMessage, getApiKey } from "@/utils/gemini";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
 interface Message {
   role: "user" | "ai";
@@ -103,7 +108,7 @@ export default function Chat() {
   };
 
   const handleFilesSelected = (files: File[]) => {
-    console.log("Files selected:", files);
+    setSelectedFiles(prev => [...prev, ...files]);
   };
 
   const renderFilePreview = (file: File) => {
@@ -198,11 +203,15 @@ export default function Chat() {
       </div>
       
       <div className="border-t p-4 space-y-4 bg-background/50 backdrop-blur-sm">
-        <FileUpload 
-          onFilesSelected={handleFilesSelected} 
-          selectedFiles={selectedFiles}
-          setSelectedFiles={setSelectedFiles}
-        />
+        {selectedFiles.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {selectedFiles.map((file, index) => (
+              <div key={`file-${index}`} className="flex flex-col hover:scale-105 transition-transform">
+                {renderFilePreview(file)}
+              </div>
+            ))}
+          </div>
+        )}
         
         <form onSubmit={handleSubmit} className="flex gap-2">
           <Textarea
@@ -231,7 +240,55 @@ export default function Chat() {
                 <Send className="h-5 w-5" />
               )}
             </Button>
-            <VoiceRecorder onTranscription={handleVoiceInput} isLoading={isLoading} />
+            <div className="flex flex-col gap-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-xl transition-transform hover:scale-105"
+                  >
+                    <Upload className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => document.getElementById('image-upload')?.click()}>
+                    Images
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => document.getElementById('document-upload')?.click()}>
+                    Documents
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => document.getElementById('video-upload')?.click()}>
+                    Videos
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <VoiceRecorder onTranscription={handleVoiceInput} isLoading={isLoading} />
+              <input
+                type="file"
+                id="image-upload"
+                className="hidden"
+                accept="image/*"
+                multiple
+                onChange={(e) => handleFilesSelected(Array.from(e.target.files || []))}
+              />
+              <input
+                type="file"
+                id="document-upload"
+                className="hidden"
+                accept=".pdf,.txt,.doc,.docx"
+                multiple
+                onChange={(e) => handleFilesSelected(Array.from(e.target.files || []))}
+              />
+              <input
+                type="file"
+                id="video-upload"
+                className="hidden"
+                accept="video/*"
+                multiple
+                onChange={(e) => handleFilesSelected(Array.from(e.target.files || []))}
+              />
+            </div>
           </div>
         </form>
       </div>

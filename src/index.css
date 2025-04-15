@@ -64,19 +64,57 @@
 }
 
 @layer utilities {
-  .chat-bubble-user {
-    @apply bg-primary text-primary-foreground p-4 rounded-2xl rounded-tr-none max-w-[80%] shadow-md animate-fade-in;
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
+    background-color: rgb(209 213 219);
+    border-radius: 9999px;
   }
 
-  .chat-bubble-ai {
-    @apply bg-secondary text-secondary-foreground p-4 rounded-2xl rounded-tl-none max-w-[80%] shadow-md animate-fade-in;
+  .scrollbar-thumb-gray-700::-webkit-scrollbar-thumb {
+    background-color: rgb(55 65 81);
+    border-radius: 9999px;
   }
 
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
   .gradient-text {
     @apply bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent;
   }
   
   .glass-effect {
     @apply bg-white/80 dark:bg-black/50 backdrop-blur-md border border-white/20 dark:border-white/10;
+  }
+
+  /* ChatGPT-like animations */
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  
+  .animate-blink {
+    animation: blink 1s infinite;
+  }
+  
+  @keyframes pulse-ring {
+    0% { transform: scale(0.95); opacity: 0.7; }
+    50% { transform: scale(1.05); opacity: 0.9; }
+    100% { transform: scale(0.95); opacity: 0.7; }
+  }
+  
+  .pulse-ring::before {
+    content: '';
+    @apply absolute inset-0 rounded-full;
+    animation: pulse-ring 2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    z-index: -1;
   }
 }

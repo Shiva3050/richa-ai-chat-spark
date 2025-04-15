@@ -118,15 +118,14 @@ export function VoiceRecorder({ onTranscription, isLoading }: VoiceRecorderProps
 
   return (
     <Button 
-      variant="outline" 
+      type="button"
+      variant="ghost" 
       size="icon" 
       onClick={toggleRecording}
       disabled={isLoading}
       className={cn(
-        "rounded-xl transition-all duration-200",
-        isRecording 
-          ? "bg-red-500 text-white hover:bg-red-600 hover:scale-105" 
-          : "hover:scale-105"
+        "rounded-full w-8 h-8",
+        isRecording ? "text-red-500" : "text-gray-500"
       )}
       aria-label={isRecording ? "Stop recording" : "Start recording"}
     >

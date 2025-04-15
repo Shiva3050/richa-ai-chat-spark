@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Mic, MicOff, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 interface VoiceRecorderProps {
   onTranscription: (text: string) => void;

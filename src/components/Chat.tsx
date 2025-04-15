@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from "react";
 import { Send, Bot, User, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,7 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { VoiceRecorder } from "./VoiceRecorder";
 import { FileUpload } from "./FileUpload";
-import { sendTextMessage, sendMultiModalMessage } from "@/utils/gemini";
+import { sendTextMessage, sendMultiModalMessage, getApiKey } from "@/utils/gemini";
 
 interface Message {
   role: "user" | "ai";

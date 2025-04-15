@@ -22,7 +22,7 @@ declare global {
 export function VoiceRecorder({ onTranscription, isLoading }: VoiceRecorderProps) {
   const [isRecording, setIsRecording] = useState(false);
   const [recognizing, setRecognizing] = useState(false);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<SpeechRecognitionType | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {

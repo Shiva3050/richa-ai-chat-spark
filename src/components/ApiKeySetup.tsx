@@ -62,18 +62,18 @@ export function ApiKeySetup({ onApiKeySet }: ApiKeySetupProps) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Set DeepSeek API Key</DialogTitle>
+          <DialogTitle>Set Gemini API Key</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <p className="text-sm text-muted-foreground">
-            Enter your DeepSeek API key to use RICHA-AI. You can get an API key from{" "}
+            Enter your Gemini API key to use RICHA-AI. You can get an API key from{" "}
             <a
-              href="https://platform.deepseek.com/"
+              href="https://makersuite.google.com/app/apikey"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary underline"
             >
-              DeepSeek Platform
+              Google AI Studio
             </a>
           </p>
           
@@ -85,7 +85,7 @@ export function ApiKeySetup({ onApiKeySet }: ApiKeySetupProps) {
           )}
           
           <Input
-            placeholder="Enter your DeepSeek API key"
+            placeholder="Enter your Gemini API key"
             value={apiKey}
             onChange={(e) => setApiKeyState(e.target.value)}
           />

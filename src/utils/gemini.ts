@@ -1,7 +1,8 @@
+
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 
-// Initialize with the provided API key
-let API_KEY = "AIzaSyBvKE5hlPXiKM6JtOuEf9a1SfD47l6kYzA"; 
+// Initialize with your API key
+let API_KEY = ""; 
 
 // Function to set the API key
 export const setApiKey = (key: string) => {
@@ -50,7 +51,7 @@ const safetySettings = [
   },
 ];
 
-// Function to handle text messages
+// Function to send text messages to Gemini API
 export const sendTextMessage = async (messages: { role: string; content: string }[]) => {
   try {
     const genAI = getGeminiClient();
@@ -82,7 +83,7 @@ export const sendTextMessage = async (messages: { role: string; content: string 
   }
 };
 
-// Function to convert file to base64
+// Function to convert file to generative part for multimodal
 export const fileToGenerativePart = async (file: File) => {
   const base64EncodedDataPromise = new Promise((resolve) => {
     const reader = new FileReader();

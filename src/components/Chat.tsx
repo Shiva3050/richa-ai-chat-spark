@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { VoiceRecorder } from "./VoiceRecorder";
-import { sendTextMessage, sendMultiModalMessage, getApiKey } from "@/utils/deepseek";
+import { sendTextMessage, sendMultiModalMessage, getApiKey } from "@/utils/gemini";
 import { useChatHistory, Message } from "@/contexts/ChatHistoryContext";
 import {
   DropdownMenu,

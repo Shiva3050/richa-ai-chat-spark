@@ -13,12 +13,30 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    mode === 'development' &&
-    componentTagger(),
+    mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/styles/_variables.scss";`,
+      },
+    },
+  },
+  build: {
+    minify: mode === 'production',
+    sourcemap: mode !== 'production',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          ui: ['@radix-ui/react-icons', '@radix-ui/react-dialog'],
+        },
+      },
     },
   },
 }));

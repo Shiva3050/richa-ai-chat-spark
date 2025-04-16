@@ -20,13 +20,6 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@import "@/styles/_variables.scss";`,
-      },
-    },
-  },
   build: {
     minify: mode === 'production',
     sourcemap: mode !== 'production',

@@ -4,7 +4,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { ApiKeySetup } from "./ApiKeySetup";
 import { useState, useEffect } from "react";
-import { getApiKey } from "@/utils/deepseek";
+import { getApiKey } from "@/utils/gemini";
 
 export function NavBar() {
   const [isApiKeySet, setIsApiKeySet] = useState(false);

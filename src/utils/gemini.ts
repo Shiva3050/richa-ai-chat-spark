@@ -2,7 +2,7 @@
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 
 // Initialize with your API key
-let API_KEY = ""; 
+let API_KEY = "AIzaSyCCxWRR-QldIoww1SBdTy6Ohs0P1BU9HdE"; 
 
 // Function to set the API key
 export const setApiKey = (key: string) => {

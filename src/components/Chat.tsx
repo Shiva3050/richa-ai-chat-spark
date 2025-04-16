@@ -34,7 +34,8 @@ export default function Chat() {
   }, [messages]);
 
   useEffect(() => {
-    setHasApiKey(!!getApiKey());
+    const apiKey = getApiKey();
+    setHasApiKey(!!apiKey);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -43,7 +44,7 @@ export default function Chat() {
     if (!hasApiKey) {
       toast({
         title: "API Key Required",
-        description: "Please set your DeepSeek API key first",
+        description: "Please set your Gemini API key first",
         variant: "destructive",
       });
       return;

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { getApiKey, setApiKey } from "@/utils/deepseek";
+import { getApiKey, setApiKey } from "@/utils/gemini";
 import { useToast } from "@/hooks/use-toast";
 import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -66,15 +66,7 @@ export function ApiKeySetup({ onApiKeySet }: ApiKeySetupProps) {
         </DialogHeader>
         <div className="space-y-4 py-4">
           <p className="text-sm text-muted-foreground">
-            Enter your Gemini API key to use RICHA-AI. You can get an API key from{" "}
-            <a
-              href="https://makersuite.google.com/app/apikey"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary underline"
-            >
-              Google AI Studio
-            </a>
+            Enter your Gemini API key to use RICHA-AI. The default key is already set, but you can use your own key if you prefer.
           </p>
           
           {error && (

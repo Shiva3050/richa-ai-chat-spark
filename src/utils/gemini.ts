@@ -56,26 +56,52 @@ export const sendTextMessage = async (messages: { role: string; content: string 
     const genAI = getGeminiClient();
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
     
-    const chatSession = model.startChat({
-      history: messages.filter((_, index) => index !== messages.length - 1).map(msg => ({
-        role: msg.role === "ai" ? "model" : "user",
-        parts: [{ text: msg.content }],
-      })),
-      generationConfig: {
-        temperature: 0.7,
-        topK: 40,
-        topP: 0.95,
-        maxOutputTokens: 2048,
-      },
-      safetySettings,
-    });
+    // Convert chat history to Gemini's expected format
+    // Only include messages before the latest one for history
+    const historyMessages = messages.slice(0, -1).map(msg => ({
+      role: msg.role === "ai" ? "model" : "user",
+      parts: [{ text: msg.content }],
+    }));
     
+    // Get the latest user message to send
     const lastMessage = messages[messages.length - 1];
-    const result = await chatSession.sendMessage(lastMessage.content);
-    const response = await result.response;
-    const text = response.text();
     
-    return text;
+    // Use direct generate content for first message, or start chat for conversation
+    if (historyMessages.length === 0) {
+      // Direct generation for first message
+      const result = await model.generateContent({
+        contents: [{ 
+          role: "user", 
+          parts: [{ text: lastMessage.content }] 
+        }],
+        generationConfig: {
+          temperature: 0.7,
+          topK: 40,
+          topP: 0.95,
+          maxOutputTokens: 2048,
+        },
+        safetySettings,
+      });
+      
+      const response = result.response;
+      return response.text();
+    } else {
+      // Start chat session with history for conversation
+      const chatSession = model.startChat({
+        history: historyMessages,
+        generationConfig: {
+          temperature: 0.7,
+          topK: 40,
+          topP: 0.95,
+          maxOutputTokens: 2048,
+        },
+        safetySettings,
+      });
+      
+      const result = await chatSession.sendMessage(lastMessage.content);
+      const response = await result.response;
+      return response.text();
+    }
   } catch (error) {
     console.error("Error sending message to Gemini:", error);
     throw error;

@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+
+import React, { useState, useRef, useEffect } from "react";
 import { Send, Bot, User, Loader2, PaperclipIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";

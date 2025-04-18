@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -19,7 +18,6 @@ export function ApiKeySetup({ onApiKeySet }: ApiKeySetupProps) {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check if API key is already set
     const key = getApiKey();
     if (key) {
       setApiKeyState(key);
@@ -40,10 +38,7 @@ export function ApiKeySetup({ onApiKeySet }: ApiKeySetupProps) {
       return;
     }
 
-    // Clear previous errors
     setError("");
-    
-    // Save the API key
     setApiKey(apiKey);
     toast({
       title: "Success",
